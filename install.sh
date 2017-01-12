@@ -1,28 +1,33 @@
 #!/bin/bash
 
-echo "Do you want to copy icon theme?"
-select yn in "Yes" "No"; do
-	case $yn in
-		Yes ) cp -R ./icons/* /usr/share/icons; break;;
-		No ) echo "Icon theme skipped"; break;;
-	esac
-done
-
-echo "Do you want to copy GTK theme?"
-select yn in "Yes" "No"; do
-	case $yn in
-		Yes ) cp -R ./themes/* /usr/share/themes; break;;
-		No ) echo "GTK theme skipped"; break;;
-	esac
-done
-
 echo "Install base Xorg with OpenBox?" 
 select yn in "Yes" "No"; do
 	case $yn in
-		Yes ) apt install openbox lxappearance feh pcmanfm gtk-chtheme lxterminal obmenu xinit x11-xserver-utils htop firefox; break;;
-		No ) echo "Xorg skipped"; break;;
+		Yes ) apt install openbox tint2 gsimplecal lxappearance feh pcmanfm lxterminal obmenu xinit x11-xserver-utils htop firefox chromium-browser; XINSTALL="YES"; break;;
+		No ) echo "Xorg skipped"; XINSTALL="NO" break;;
 	esac
 done
+
+if [ $XINSTALL = "YES" ]; then
+	echo "Do you want to copy icon theme?"
+	select yn in "Yes" "No"; do
+		case $yn in
+			Yes ) cp -R ./icons/* /usr/share/icons; break;;
+			No ) echo "Icon theme skipped"; break;;
+		esac
+	done
+
+	echo "Do you want to copy GTK theme?"
+	select yn in "Yes" "No"; do
+		case $yn in
+			Yes ) mkdir ~/.themes; cp -r ./themes/* ~/.themes/; cp ~/.themes/Diehard4/tint2rc ~/.config/tint2/default.tint2rc; break;;
+			#Yes ) cp -R ./themes/* /usr/share/themes; find /usr/share/themes -type d -exec chmod 755 {} +; find /usr/share/themes -type f -exec chmod 644 {} +; cp /usr/share/themes/ break;;
+			No ) echo "GTK theme skipped"; break;;
+		esac
+	done
+fi
+
+#=======================================================
 
 echo "Install graphical applications?" 
 select yn in "Yes" "No"; do
@@ -48,5 +53,4 @@ select yn in "Yes" "No"; do
 	esac
 done
 
-#apt install openbox lxappearance pcmanfm gtk-chtheme lxterminal obmenu firefox xinit x11-xserver-utils htop
-
+echo "Customization Complete!"
