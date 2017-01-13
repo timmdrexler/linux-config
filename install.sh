@@ -3,13 +3,13 @@
 echo "Install base Xorg with OpenBox?" 
 select yn in "Yes" "No"; do
 	case $yn in
-		Yes ) apt install openbox tint2 gsimplecal lxappearance feh pcmanfm lxterminal obmenu xinit x11-xserver-utils htop firefox chromium-browser; XINSTALL="YES"; break;;
+		Yes ) apt install openbox tint2 gsimplecal volumeicon nitrogen compton lxappearance feh pcmanfm lxterminal obmenu xinit x11-xserver-utils htop firefox chromium-browser; XINSTALL="YES"; break;;
 		No ) echo "Xorg skipped"; XINSTALL="NO" break;;
 	esac
 done
 
 if [ $XINSTALL = "YES" ]; then
-	echo "Do you want to copy icon theme?"
+	echo "Do you want to install icon theme?"
 	select yn in "Yes" "No"; do
 		case $yn in
 			Yes ) cp -R ./icons/* /usr/share/icons; break;;
@@ -17,7 +17,7 @@ if [ $XINSTALL = "YES" ]; then
 		esac
 	done
 
-	echo "Do you want to copy GTK theme?"
+	echo "Do you want to install GTK theme?"
 	select yn in "Yes" "No"; do
 		case $yn in
 			Yes ) mkdir ~/.themes; cp -r ./themes/* ~/.themes/; cp ~/.themes/Diehard4/tint2rc ~/.config/tint2/default.tint2rc; break;;
@@ -25,6 +25,11 @@ if [ $XINSTALL = "YES" ]; then
 			No ) echo "GTK theme skipped"; break;;
 		esac
 	done
+
+	#Setup GUI config files	
+	cp -r ./config/openbox ~/.config
+	cp ./config/background.png ~/Pictures
+
 fi
 
 #=======================================================

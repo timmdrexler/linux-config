@@ -1,0 +1,5 @@
+compton -c &
+tint2 &
+nitrogen --restore &
+volumeicon &
+
