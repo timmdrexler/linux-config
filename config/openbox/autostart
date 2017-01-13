@@ -1,4 +1,4 @@
-compton -c &
+compton -b -c &
 tint2 &
 nitrogen --restore &
 volumeicon &
