@@ -1,5 +1,5 @@
 compton -b -c &
-tint2 &
+tint2 -c ~/.config/tint2/default.tint2rc &
 nitrogen --restore &
 volumeicon &
 
