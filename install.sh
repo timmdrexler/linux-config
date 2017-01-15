@@ -3,37 +3,23 @@
 echo "Install base Xorg with OpenBox?" 
 select yn in "Yes" "No"; do
 	case $yn in
-		Yes ) apt install openbox openbox-menu tint2 gsimplecal mousepad volumeicon-alsa nitrogen compton lxappearance feh pcmanfm lxterminal obmenu xinit x11-xserver-utils htop firefox chromium-browser; XINSTALL="YES"; break;;
+		Yes ) apt install openbox openbox-menu tint2 file-roller gsimplecal mousepad volumeicon-alsa nitrogen compton lxappearance feh pcmanfm lxterminal obmenu xinit x11-xserver-utils htop firefox chromium-browser; XINSTALL="YES"; break;;
 		No ) echo "Xorg skipped"; XINSTALL="NO" break;;
 	esac
 done
 
 if [ "$XINSTALL" = "YES" ]; then
-	
-	#echo "Do you want to install icon theme?"
-	#select yn in "Yes" "No"; do
-	#	case $yn in
-	#		Yes )  chmod 700 ~/.icons; chown $USER:$USER ~/.icons; ; break;;
-	#		No ) echo "Icon theme skipped"; break;;
-	#	esac
-	#done
-
-	#echo "Do you want to install GTK theme?"
-	#select yn in "Yes" "No"; do
-	#	case $yn in
-	#		Yes ) ; ; ; break;;
-	#		#Yes ) cp -R ./themes/* /usr/share/themes; ; cp /usr/share/themes/ break;;
-	#		No ) echo "GTK theme skipped"; break;;
-	#	esac
-	#done
 
 	#Copy themes and setup GUI config files
 	mkdir ~/.config; mkdir ~/.icons; mkdir ~/.themes; mkdir ~/.config/tint2; mkdir ~/.config/nitrogen; mkdir ~/Pictures
 	cp -r ./config/openbox ~/.config
 	cp ./config/background.png ~/Pictures
-	cp -r ./icons/* ~/.icons
+	#cp -r ./icons/* ~/.icons
+	add-apt-repository ppa:numix/ppa
+	apt update
+	apt install numix-icon-theme-circle
 	cp -r ./themes/* ~/.themes
-	cp ./config/default.tint2rc ~/.config/tint2/default.tint2rc
+	cp ./config/tint2rc ~/.config/tint2/tint2rc
 	cp ./config/bg-saved.cfg ~/.config/nitrogen/bg-saved.cfg
 
 	#Fix permissions
