@@ -38,11 +38,11 @@ if [ "$XINSTALL" = "YES" ]; then
 	echo "[nitrogen]" >> ~/.config/nitrogen/nitrogen.cfg
 	echo "view=icon" >> ~/.config/nitrogen/nitrogen.cfg
 	echo "icon_caps=false" >> ~/.config/nitrogen/nitrogen.cfg
-	echo "dirs=/home/tdrexler/Pictures;" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "dirs=/home/$SUDO_USER/Pictures;" >> ~/.config/nitrogen/nitrogen.cfg
 
 	touch ~/.config/nitrogen/bg-saved.cfg
 	echo "[:0.0]" >> ~/.config/nitrogen/bg-saved.cfg
-	echo "file=/home/tdrexler/Pictures/background.jpg" >> ~/.config/nitrogen/bg-saved.cfg
+	echo "file=/home/$SUDO_USER/Pictures/background.jpg" >> ~/.config/nitrogen/bg-saved.cfg
 	echo "mode=4" >> ~/.config/nitrogen/bg-saved.cfg
 	echo "bgcolor=#000000" >> ~/.config/nitrogen/bg-saved.cfg
 
