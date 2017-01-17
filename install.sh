@@ -3,7 +3,11 @@
 echo "Install base Xorg with OpenBox?" 
 select yn in "Yes" "No"; do
 	case $yn in
-		Yes ) apt install openbox openbox-menu tint2 file-roller gsimplecal mousepad volumeicon-alsa nitrogen compton lxappearance feh pcmanfm lxterminal obmenu xinit x11-xserver-utils htop firefox chromium-browser; XINSTALL="YES"; break;;
+		Yes ) apt install openbox openbox-menu tint2 wicd \
+			file-roller gsimplecal mousepad volumeicon-alsa \
+			nitrogen compton lxappearance feh pcmanfm lxterminal \
+			obmenu xinit x11-xserver-utils htop firefox \
+			chromium-browser; XINSTALL="YES"; break;;
 		No ) echo "Xorg skipped"; XINSTALL="NO" break;;
 	esac
 done
@@ -13,7 +17,7 @@ if [ "$XINSTALL" = "YES" ]; then
 	#Copy themes and setup GUI config files
 	mkdir ~/.config; mkdir ~/.icons; mkdir ~/.themes; mkdir ~/.config/tint2; mkdir ~/.config/nitrogen; mkdir ~/Pictures
 	cp -r ./config/openbox ~/.config
-	cp ./config/background.png ~/Pictures
+	cp ./config/background.jpg ~/Pictures
 	#cp -r ./icons/* ~/.icons
 	add-apt-repository ppa:numix/ppa
 	apt update
