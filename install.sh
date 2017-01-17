@@ -3,7 +3,8 @@
 echo "Install base Xorg with OpenBox?" 
 select yn in "Yes" "No"; do
 	case $yn in
-		Yes ) apt install openbox openbox-menu tint2 wicd \
+		Yes ) 	add-apt-repository ppa:numix/ppa; apt update; apt install \
+			openbox openbox-menu tint2 wicd arc-theme numix-icon-theme-circle\
 			file-roller gsimplecal mousepad volumeicon-alsa \
 			nitrogen compton lxappearance feh pcmanfm lxterminal \
 			obmenu xinit x11-xserver-utils htop firefox \
@@ -17,14 +18,32 @@ if [ "$XINSTALL" = "YES" ]; then
 	#Copy themes and setup GUI config files
 	mkdir ~/.config; mkdir ~/.icons; mkdir ~/.themes; mkdir ~/.config/tint2; mkdir ~/.config/nitrogen; mkdir ~/Pictures
 	cp -r ./config/openbox ~/.config
+	cp -r ./config/gtk-3.0 ~/.config
+	cp ./config/gtkrc-2.0 ~/.gtkrc-2.0
 	cp ./config/background.jpg ~/Pictures
 	#cp -r ./icons/* ~/.icons
-	add-apt-repository ppa:numix/ppa
-	apt update
-	apt install numix-icon-theme-circle
 	cp -r ./themes/* ~/.themes
 	cp ./config/tint2rc ~/.config/tint2/tint2rc
-	cp ./config/bg-saved.cfg ~/.config/nitrogen/bg-saved.cfg
+	#cp ./config/bg-saved.cfg ~/.config/nitrogen/bg-saved.cfg
+	
+	#Create nitrogen config files
+	touch ~/.config/nitrogen/nitrogen.cfg
+	echo "[geometry]" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "posx=200" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "posy=20" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "sizex=450" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "sizey=500" >> ~/.config/nitrogen/nitrogen.cfg
+	echo " " >> ~/.config/nitrogen/nitrogen.cfg
+	echo "[nitrogen]" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "view=icon" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "icon_caps=false" >> ~/.config/nitrogen/nitrogen.cfg
+	echo "dirs=/home/tdrexler/Pictures;" >> ~/.config/nitrogen/nitrogen.cfg
+
+	touch ~/.config/nitrogen/bg-saved.cfg
+	echo "[:0.0]" >> ~/.config/nitrogen/bg-saved.cfg
+	echo "file=/home/tdrexler/Pictures/background.jpg" >> ~/.config/nitrogen/bg-saved.cfg
+	echo "mode=4" >> ~/.config/nitrogen/bg-saved.cfg
+	echo "bgcolor=#000000" >> ~/.config/nitrogen/bg-saved.cfg
 
 	#Fix permissions
 	#chmod 700 ~/.config; chown $USER:$USER ~/.config
@@ -45,6 +64,9 @@ if [ "$XINSTALL" = "YES" ]; then
 	find ~/Pictures -exec chown "$SUDO_USER":"$SUDO_USER" {} +
 	find ~/Pictures -type d -exec chmod 755 {} +
 	find ~/Pictures -type f -exec chmod 664 {} +
+
+	chown "$SUDO_USER":"$SUDO_USER" ~/.gtkrc-2.0
+	chmod 664 ~/.gtkrc-2.0
 fi
 
 #=======================================================
