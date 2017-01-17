@@ -19,6 +19,7 @@ if [ "$XINSTALL" = "YES" ]; then
 	mkdir ~/.config; mkdir ~/.icons; mkdir ~/.themes; mkdir ~/.config/tint2; mkdir ~/.config/nitrogen; mkdir ~/Pictures
 	cp -r ./config/openbox ~/.config
 	cp -r ./config/gtk-3.0 ~/.config
+	cp -r ./config/volumeicon ~/.config
 	cp ./config/gtkrc-2.0 ~/.gtkrc-2.0
 	cp ./config/background.jpg ~/Pictures
 	#cp -r ./icons/* ~/.icons
